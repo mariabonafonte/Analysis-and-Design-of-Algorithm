@@ -1,4 +1,4 @@
-# Analysis and Design of Algorithms#
+# Analysis and Design of Algorithms
 
 Repository containing the laboratory assignments developed for the Analysis and Design of Algorithms course during the second year of Software Engineering at the University of Málaga (UMA).
 
