@@ -1,0 +1,166 @@
+---
+title: "Finding Pythagorean Triples by Brute Force Search"
+author: "Your Name"
+date: "`r Sys.Date()`"
+output:
+  bookdown::pdf_document2:
+    fig_caption: yes
+    toc: false
+    extra_dependencies: ["placeins"]
+papersize: a4
+fontsize: 11pt
+geometry:
+  - top=1in
+  - bottom=1in
+  - left=1.5in
+  - right=1.5in
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+# Empirical Results
+
+The experimental results of your algorithm are plotted in Figure 1 and 2. The raw data is provided in Table \@ref(tab:data-summary) in the Appendix, along with the statistical fitting of the data to different growth models. 
+
+
+```{r}
+# Reading the data
+data <- data.frame(read.table("NaivePythagoreanTripleFinder-stats.txt"));
+names(data) <- c("maxval", "numtriples", "time")
+
+# Power-law fit
+
+n <- dim(data)[1];
+max_x <- 10^(ceiling(log10(max(data$maxval))))
+xx <- seq(min(data$maxval), max_x, by = 1)
+
+b0 <- log(data$time[n]/data$time[n-1])/log(data$maxval[n]/data$maxval[n-1])
+a0 <- data$time[n]/(data$maxval[n]^b0)
+datafit_time <- nls(time ~ a * maxval^b, data=data, start = list(a = a0, b = b0))
+fitfun_time <- function(x) predict(datafit_time, newdata=data.frame(maxval=x))
+
+b0 <- log(data$numtriples[n]/data$numtriples[n-1])/log(data$maxval[n]/data$maxval[n-1])
+a0 <- data$numtriples[n]/(data$maxval[n]^b0)
+datafit_num <- nls(numtriples ~ a * maxval^b, data=data, start = list(a = a0, b = b0))
+fitfun_num <- function(x) predict(datafit_num, newdata=data.frame(maxval=x))
+
+
+
+pwrdata <- data.frame(
+  "maxval" = xx,
+  "ptime"  = fitfun_time(xx),
+  "pnum"  = fitfun_num(xx)
+)
+  
+
+
+```
+
+```{r numtriples, fig.cap="Number of primitive Pythagorean triples up to a maximum value"}
+# Graphical representation
+
+library(ggplot2)
+library(scales)
+col <- c("data" = "blue", "power-law fit" = "red")
+rx <-  seq(0, max_x, by = max_x/10)
+figure <- ggplot(data=data, aes(x=maxval, y=numtriples)) + 
+  geom_line(data = pwrdata, aes(x=maxval, y=pnum, colour = "power-law fit")) +
+  geom_point(shape=21, size=3, aes(colour="data"),  fill="white") +
+  scale_colour_manual(name = "", values = col, 
+                      labels = c("data", 
+                                   bquote(.(summary(datafit_num)$coefficients[1]) ~ n^.(summary(datafit_num)$coefficients[2])))
+    ) +  
+  guides(color = guide_legend(override.aes = list(shape = c(1, NA), 
+                                                  linetype = c("blank", "solid")
+                                                  ) 
+                              )
+         ) +
+  scale_x_continuous (name = "maximum value", breaks = rx, 
+                      labels = scales::number_format(accuracy = 1)) +
+  scale_y_continuous(name = "#triples", labels = scales::number_format(accuracy = 1))+
+  theme_bw() + 
+  theme(legend.justification = c(0, 1), 
+        legend.position = c(0, 1), 
+        legend.box.margin=margin(c(5,5,5,5))) 
+
+show(figure)
+```
+
+
+```{r time, fig.cap="Time required for finding primitive Pythagorean triples up to a maximum value"}
+# Graphical representation
+
+rx <-  seq(0, max_x, by = max_x/10)
+figure <- ggplot(data=data, aes(x=maxval, y=time)) + 
+  geom_line(data = pwrdata, aes(x=maxval, y=ptime, colour = "power-law fit")) +
+  geom_point(shape=21, size=3, aes(colour="data"),  fill="white") +
+  scale_colour_manual(name = "", values = col, 
+                      labels = c("data", 
+                                   bquote(.(summary(datafit_time)$coefficients[1]) ~ n^.(summary(datafit_time)$coefficients[2])))
+    ) +
+  guides(color = guide_legend(override.aes = list(shape = c(1, NA), 
+                                                  linetype = c("blank", "solid")
+                                                  ) 
+                              )
+         ) +
+  scale_x_continuous (name = "maximum value", breaks = rx, 
+                      labels = scales::number_format(accuracy = 1)) +
+  scale_y_continuous(name = "time (s)", labels = scales::number_format(accuracy = 1))+
+  theme_bw() + 
+  theme(legend.justification = c(0, 1), 
+        legend.position = c(0, 1), 
+        legend.box.margin=margin(c(5,5,5,5))) 
+
+show(figure)
+```
+
+
+
+# Discussion
+
+Provide your interpretation of the results: 
+(1) explain the meaning of each plot,
+(2) discuss whether the results match the theoretical predictions of the problem, 
+(3) discuss the complexity of your implementation.
+
+\FloatBarrier
+
+\setcounter{section}{0}
+\renewcommand{\thesection}{\Alph{section}}
+
+# Appendix
+
+## Data Summary 
+
+```{r data-summary}
+library(knitr)
+
+table_dataframe <- data.frame(
+    "maxval" = data$maxval,
+    "num" = data$numtriples,
+    "time" = data$time
+  )
+kable(table_dataframe, "pipe",
+      col.names = c("maxval", "#triples", "time"), 
+      caption = "Summary of the experimental results")
+```
+
+## Model Fitting 
+### Number of Pythagorean triples
+
+```{r}
+show(summary(datafit_num))
+```
+
+### Computational time
+
+```{r}
+show(summary(datafit_time))
+```
+
+  
+
+
