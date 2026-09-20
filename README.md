@@ -14,12 +14,11 @@ Repository containing the laboratory assignments developed for the Analysis and 
 
 The repository contains the different laboratory assignments developed throughout the course.
 
-Lab 1 — Brute Force
-* 📁 CountInversionsProblem: Implementation and analysis of algorithms for counting the number of inversions in an array.
-* 📁 KthElementProblem: Implementation of algorithms for finding the k-th element of a collection.
-* 📁 MatrixMultiplicationProblem: Implementation and analysis of algorithms for multiplying matrices.
-  
-More labs will be added as the course progresses.
+#### Lab 1 — Brute Force
+* 📁 [CountInversionsProblem](./CountInversionsProblem): Implementation and analysis of algorithms for counting the number of inversions in an array.
+* 📁 [KthElementProblem](./KthElementProblem): Implementation of algorithms for finding the k-th element of a collection.
+* 📁 [MatrixMultiplicationProblem](./MatrixMultiplicationProblem): Implementation and analysis of algorithms for multiplying matrices.
+* 📁 [PhytagoreanTriples](./PhytagoreanTriples): Implementation and analysis of a brute-force algorithm for finding primitive Pythagorean triples.
 
 ### 🛠️ Technologies
 
