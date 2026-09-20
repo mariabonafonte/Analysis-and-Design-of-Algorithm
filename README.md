@@ -1,8 +1,8 @@
-#Analysis and Design of Algorithms
+# Analysis and Design of Algorithms#
 
 Repository containing the laboratory assignments developed for the Analysis and Design of Algorithms course during the second year of Software Engineering at the University of Málaga (UMA).
 
-📚 Course
+### 📚 Course
 
 * Degree: Software Engineering
 * University: Universidad de Málaga (UMA)
@@ -10,7 +10,7 @@ Repository containing the laboratory assignments developed for the Analysis and 
 * Course: Analysis and Design of Algorithms
 * Academic Year: 2026/2027
 
-📂 Labs
+### 📂 Labs
 
 The repository contains the different laboratory assignments developed throughout the course.
 
@@ -21,16 +21,16 @@ Lab 1 — Brute Force
   
 More labs will be added as the course progresses.
 
-🛠️ Technologies
+### 🛠️ Technologies
 
 * Java
 * Git & GitHub
 
-🎯 Focus
+### 🎯 Focus
 
 The labs focus on the design, implementation, and analysis of algorithms, with particular attention to algorithm efficiency and computational complexity.
 
-👩‍💻 Author
+### 👩‍💻 Author
 
 María Bonafonte Sánchez
 
