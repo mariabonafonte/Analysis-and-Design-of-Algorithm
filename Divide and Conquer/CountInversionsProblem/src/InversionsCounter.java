@@ -6,48 +6,30 @@ public class InversionsCounter {
 	
 	private static int countInv(Integer[] a, int left, int right) {
 		//Complete your code here
-		if(left>=right) {
-			return 0;
-		}
-		int mid = left + (right- left)/2;
-		int count = 0;
-		
-		// Divide: recursively count inversions in the left and right halves
-		count += countInv(a, left, mid);
-		count += countInv(a, mid + 1, right);
-		
-		// Conquer / Combine: merge the two sorted halves and count split inversions
-		Integer[] temp = new Integer[right - left + 1];
-		int i = left;      // Pointer for the left half
-		int j = mid + 1;   // Pointer for the right half
-		int k = 0;         // Pointer for the temporary array
+				if(left>=right) return 0;
+				//medium variable
+				int mid = left + (right-left)/2;
+				int count = countInv(a, left, mid) + countInv(a, mid+1, right);
+				
+				Integer[] L = new Integer[mid - left + 1];
+		        Integer[] R = new Integer[right - mid];
+		        for (int x = 0; x < L.length; x++) L[x] = a[left + x];
+		        for (int x = 0; x < R.length; x++) R[x] = a[mid + 1 + x];
+				
+				int i = 0, j = 0, k = left;
+				while (i < L.length && j < R.length) {
+					if (L[i] <= R[j]) {
+						a[k++] = L[i++];
+					} else {
+						a[k++] = R[j++];
+						count += L.length - i; // everything left in L is > R[j]
+					}
+				}
+				
+				while (i < L.length) a[k++] = L[i++];
+				while (j < R.length) a[k++] = R[j++];
 
-		while (i <= mid && j <= right) {
-			if (a[i] <= a[j]) {
-				temp[k++] = a[i++];
-			} else {
-				temp[k++] = a[j++];
-		// If a[j] is smaller than a[i], it's smaller than all remaining elements in the left half
-				count += (mid - i + 1);
-			}
-		}
-
-		// Copy any remaining elements from the left half
-		while (i <= mid) {
-			temp[k++] = a[i++];
-		}
-
-		// Copy any remaining elements from the right half
-		while (j <= right) {
-			temp[k++] = a[j++];
-		}
-
-		// Transfer the sorted elements back into the original array
-		for (i = left, k = 0; i <= right; i++, k++) {
-			a[i] = temp[k];
-		}
-
-		return count;
+				return count;
 	}
 	
 }
