@@ -7,5 +7,14 @@ public class RepeatedElementsArray {
 	
 	private static int findElement(Integer[] v, int left, int right) {
 		//Complete your code here
+		if(v[left]==v[right]){
+		    return v[left];
+		}
+		int mid = (left+right)/2;
+		if(v[mid] != v[0] +mid){
+		    return findElement(v, left, mid);
+		}else{
+		    return findElement(v, mid+1, right);
+		}
 	}
 }

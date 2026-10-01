@@ -9,31 +9,29 @@ public class KthElement {
 		if(left==right) {
 			return v[left];
 		}
-		int p = left;
-		int l = left;
-		int r = right;
+		int base = left;
 
-		while (l <= r) {
-			while (l <= r && v[l] <= v[p]) l++;
-			while (l <= r && v[r] > v[p]) r--;
+		while (left <= right) {
+			while (left <= right && v[left] <= v[base]) left++;
+			while (left <= right && v[right] > v[base]) right--;
 					
-			if (l < r) {
-				int temp = v[l];
-				v[l] = v[r];
-				v[r] = temp;
+			if (left < right) {
+				int temp = v[left];
+				v[left] = v[right];
+				v[right] = temp;
 			}
 		}
 
-		int temp = v[p];
-		v[p] = v[r];
-		v[r] = temp;
+		int temp = v[base];
+		v[base] = v[right];
+		v[right] = temp;
 
-		if (k == r) {
+		if (k == right) {
 			return v[k];
-		} else if (k < r) {
-			return findKth(v, k, left, r - 1);
+		} else if (k < right) {
+			return findKth(v, k, left, right - 1);
 		} else {
-			return findKth(v, k, r + 1, right);
+			return findKth(v, k, right + 1, right);
 		}
 	}    	 	
 }
