@@ -24,8 +24,8 @@ The repository contains the different laboratory assignments developed throughou
 * #### VPL 2 — Divide and Conquer
 * 📁 [CountInversionsProblem](./Divide%20and%20Conquer/CountInversionsProblem)
 * 📁 [KthElementProblem](./Divide%20and%20Conquer/KthElementProblem)
-* 📁 [MagicIndexProblem](./Divide%20and%20Conquer/MatrixMultiplicationProblem)
-* 📁 [RepeatedElementProblem](./Divide%20and%20Conquer/PhytagoreanTriples)
+* 📁 [MagicIndexProblem](./Divide%20and%20Conquer/MagicIndexProblem)
+* 📁 [RepeatedElementProblem](./Divide%20and%20Conquer/RepeatedElementProblem)
 
 ### 🛠️ Technologies
 
