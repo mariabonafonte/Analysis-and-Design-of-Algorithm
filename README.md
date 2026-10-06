@@ -10,7 +10,7 @@ Repository containing the laboratory assignments developed for the Analysis and 
 * Course: Analysis and Design of Algorithms
 * Academic Year: 2026/2027
 
-### 📂 Labs
+### 📂 CourseWork
 
 The repository contains the different laboratory assignments developed throughout the course.
 
