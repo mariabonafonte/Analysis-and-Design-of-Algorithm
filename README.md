@@ -30,7 +30,7 @@ The repository contains the different laboratory assignments developed throughou
 #### LAB 2 — Diophantine Approximation: 📁 [DiophantineApproximation](./Lab2%20DiophantineApproximation)
 
 ### 📂 Extra Work 
-#### LAB 2 2025 — Advanced Sorting Algorithm: 📁 [Lab 2 25/26](./Lab2%2025:26%20AdvancedSortingAlgorithm)
+#### LAB 2 2025 — Advanced Sorting Algorithm: 📁 [Lab 2 25/26](./Lab2%2025:26%20AdvancedSortingAlgorithms)
 
 ### 🛠️ Technologies
 
