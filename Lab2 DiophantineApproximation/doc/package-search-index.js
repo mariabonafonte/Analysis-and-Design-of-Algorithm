@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"es.uma.eda"},{"l":"es.uma.eda.divideandconquer.algebra.diophantine.approximation"},{"l":"es.uma.eda.problem.algebra.diophantine"},{"l":"es.uma.eda.problem.algebra.diophantine.approximation"}]

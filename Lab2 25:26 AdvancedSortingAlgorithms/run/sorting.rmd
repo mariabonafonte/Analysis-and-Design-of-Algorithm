@@ -1,0 +1,196 @@
+---
+title: "Divide-and-Conquer Sorting Algorithms"
+author: "Your Name"
+date: "`r Sys.Date()`"
+output:
+  bookdown::pdf_document2:
+    fig_caption: yes
+    toc: false
+papersize: a4
+fontsize: 11pt
+geometry:
+  - top=1in
+  - bottom=1in
+  - left=1.5in
+  - right=1.5in
+params:
+  algorithm: ["mergesort", "quicksort"]
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+
+# Empirical Results
+
+Describe the results in Figures 1--\@ref(fig:sorted).
+
+
+
+```{r}
+read_stats_sorted <- function  (filename) {
+  # Reading the data
+  rawdata = read.table(filename)
+  # Compute basic statistics 
+  stderr <- function(x) sd(x)/sqrt(length(x))
+  m <- dim(rawdata)[1];
+  n <- dim(rawdata)[2];
+  
+  dataframe <- data.frame(
+    "sorted" = 2.0*(m - rawdata[,1])/m - 1.0,
+    "val" = apply(t(rawdata)[-1,], 2, median),
+    "valerr" = apply(t(rawdata)[-1,], 2, stderr)
+  )
+  
+}
+
+
+read_stats_time <- function  (filename) {
+  # Reading the data
+  rawdata = read.table(filename)
+  # Compute basic statistics 
+  stderr <- function(x) sd(x)/sqrt(length(x))
+  m <- dim(rawdata)[1];
+  n <- dim(rawdata)[2];
+  dataframe <- data.frame(
+    "size" = rawdata[,1],
+    "val" = apply(t(rawdata)[-1,], 2, mean),
+    "valerr" = apply(t(rawdata)[-1,], 2, stderr)
+  )
+  
+  # power-law fit
+  b0 <- log(dataframe$val[m]/dataframe$val[m-1])/log(dataframe$size[m]/dataframe$size[m-1])
+  a0 <- dataframe$val[m]/(dataframe$size[m]^b0)
+  datafit1 <- nls(val ~ a * size ^ b, data=dataframe, start = list(a = a0, b = b0))
+  fitfun1 <- function(x) predict(datafit1, newdata=data.frame(size=x))
+  # power-law fit
+  b0 <- log((dataframe$val[m]/log(dataframe$size[m]))/(dataframe$val[m-1]/log(dataframe$size[m-1])))/log(dataframe$size[m]/dataframe$size[m-1])
+  a0 <- dataframe$val[m]/(dataframe$size[m]^b0*log(dataframe$size[m]))
+  datafit2 <- nls(val ~ a * size ^ b * log(size), data=dataframe, start = list(a = a0, b = b0))
+  fitfun2 <- function(x) predict(datafit2, newdata=data.frame(size=x))  
+  xx <- seq(1, max(dataframe$size)*2, by = max(dataframe$size)/1000)
+  data_projection <- data.frame(
+    "size" = xx,
+    "val1" = fitfun1(xx),
+    "val2" = fitfun2(xx)
+  )
+  datalist <-list(data = dataframe, fit1 = datafit1, f1 = fitfun1, fit2 = datafit2, f2 = fitfun2, predict = data_projection)
+}
+
+
+algorithm_time <- list()
+for (alg in params$algorithm) {
+  data <- read_stats_time(paste(alg, "1.txt", sep=""))
+  algorithm_time[[alg]] <- data
+  
+}
+
+algorithm_data <- list()
+for (alg in params$algorithm) {
+  data <- read_stats_sorted(paste(alg, "2.txt", sep=""))
+  algorithm_data[[alg]] <- data
+  
+}
+
+nf <- dim(algorithm_data[[1]])[1]
+
+```
+
+
+```{r tc, fig.cap=paste(sprintf("\\label{fig:%s} ", params$algorithm), "Time required for sorting lists of increasing size using ", params$algorithm, ".", sep=""), result="asis", message=FALSE, echo=FALSE, warning=FALSE}
+library(ggplot2)
+
+col <- c("data" = "blue", "fit1" = "red", "fit2" = "black")
+for (alg in params$algorithm) {
+  dataf <- algorithm_time[[alg]]
+  figure <- ggplot() + 
+    geom_line(data = dataf$predict, aes(x=size, y=val1, colour = "fit1")) +
+    geom_line(data = dataf$predict, aes(x=size, y=val2, colour = "fit2")) +
+    geom_point(data = dataf$data, shape=21, size=3, aes(x=size, y=val, colour="data"),  fill="white") +
+    geom_errorbar(data = dataf$data, aes(x=size, y=val, ymin=val-valerr, ymax=val+valerr, colour="data"), width=1) +
+    scale_colour_manual(name = "", values = col, 
+                        labels = c("empirical measurement", 
+                                   bquote(
+                                     .(format(summary(dataf$fit1)$coefficients[1], scientific=TRUE, digits=3)) ~ n^.(format(summary(dataf$fit1)$coefficients[2], scientific=FALSE, digits=3))
+                                     ),
+                                   bquote(
+                                     .(format(summary(dataf$fit2)$coefficients[1], scientific=TRUE, digits=3)) ~ n^.(format(summary(dataf$fit2)$coefficients[2], scientific=FALSE, digits=3)) ~ "·log(n)"
+                                     )
+                        )
+    ) + 
+    guides(color = guide_legend(override.aes = list(shape = c(1, NA, NA), 
+                                                    linetype = c("blank", "solid", "solid"),
+                                                    colour = c("blue", "red", "black")
+    ) 
+    )
+    ) +
+    coord_cartesian(xlim = c(min(dataf$data$size), max(dataf$data$size)), ylim = c(min(dataf$data$val-dataf$data$valerr),max(dataf$data$val+dataf$data$valerr))) + 
+    xlab("number of points") +
+    ylab("time (s)") +
+    ggtitle(alg) +
+    theme_bw() + 
+    theme(legend.justification = c(0, 1), 
+          legend.position = c(0.05, 1.05), 
+          legend.box.margin=margin(c(5,5,5,5)),
+          legend.background = element_rect(fill='transparent'))
+  #
+  cat('\n\n') 
+  print(figure)
+}
+```
+
+
+
+
+
+```{r sorted, fig.cap=paste0("Time required for sorting lists (size=", (nf-1)/2, ") of different sortedness, from -1 (sorted in decreasing order) to +1 (sorted in increased order), using different algorithms."), result="asis", message=FALSE, echo=FALSE, warning=FALSE}
+library(ggplot2)
+
+
+datam <- matrix (0, nrow=nf*length(params$algorithm), ncol=3)
+colnames(datam) <- c("sorted", "val", "algorithm")
+k <- 1
+for (alg in params$algorithm) {
+  dataf <- algorithm_data[[alg]]
+  datam[k:(k+nf-1),1] <- dataf$sorted
+  datam[k:(k+nf-1),2] <- dataf$val
+  datam[k:(k+nf-1),3] <- rep(alg, nf)
+  k <- k + nf
+}
+
+mydata <- data.frame(datam)
+mydata$sorted <- as.numeric(mydata$sorted)
+mydata$val <- as.numeric(mydata$val)
+
+figure <- ggplot(data = mydata, aes(x=sorted, y=val, group = algorithm, color=algorithm)) + 
+    geom_line() +
+    geom_point(shape=21, size=1, fill="white") +
+    xlab("sortedness") +
+    ylab("time (s)") +
+    theme_bw() + 
+   theme(legend.justification = c(0, 1), 
+          legend.position = c(0.45, .95), 
+          legend.box.margin=margin(c(5,5,5,5)),
+          legend.background = element_rect(fill='transparent'))
+  #
+  cat('\n\n') 
+  print(figure)
+
+```
+
+
+# Discussion
+
+Provide here your interpretation of the results: 
+(1) explain the meaning of the plots,
+(2) discuss the complexity of your implementation.
+(3) discuss the behavior of your implementation regarding the level of sortedness
+
+
+
+
+
+
+
