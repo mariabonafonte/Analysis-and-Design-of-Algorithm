@@ -14,7 +14,7 @@ Repository containing the laboratory assignments developed for the Analysis and 
 
 The repository contains the different laboratory assignments developed throughout the course.
 
-#### VPL1 1 — Brute Force
+* #### VPL1 — Brute Force
 * 📁 [CountInversionsProblem](./Brute%20Force/CountInversionsProblem)
 * 📁 [KthElementProblem](./Brute%20Force/KthElementProblem)
 * 📁 [MatrixMultiplicationProblem](./Brute%20Force/MatrixMultiplicationProblem)
@@ -26,6 +26,8 @@ The repository contains the different laboratory assignments developed throughou
 * 📁 [KthElementProblem](./Divide%20and%20Conquer/KthElementProblem)
 * 📁 [MagicIndexProblem](./Divide%20and%20Conquer/MagicIndexProblem)
 * 📁 [RepeatedElementProblem](./Divide%20and%20Conquer/RepeatedElementProblem)
+
+#### LAB 2 — Diophantine Approximation: 📁 [DiophantineApproximation](./Lab2%20DiophantineApproximation)
 
 ### 🛠️ Technologies
 
