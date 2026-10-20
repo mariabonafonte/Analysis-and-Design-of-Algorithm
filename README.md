@@ -14,13 +14,15 @@ Repository containing the laboratory assignments developed for the Analysis and 
 
 The repository contains the different laboratory assignments developed throughout the course.
 
+#### Unit 1:
 * #### VPL1 — Brute Force
 * 📁 [CountInversionsProblem](./Brute%20Force/CountInversionsProblem)
 * 📁 [KthElementProblem](./Brute%20Force/KthElementProblem)
 * 📁 [MatrixMultiplicationProblem](./Brute%20Force/MatrixMultiplicationProblem)
 * 📁 [PhytagoreanTriples](./Brute%20Force/PhytagoreanTriples)
 #### LAB 1 — Naive Search: 📁 [NaiveSearch](./Lab1%20Naive%20Search)
-  
+
+#### Unit 2:
 * #### VPL 2 — Divide and Conquer
 * 📁 [CountInversionsProblem](./Divide%20and%20Conquer/CountInversionsProblem)
 * 📁 [KthElementProblem](./Divide%20and%20Conquer/KthElementProblem)
@@ -32,14 +34,7 @@ The repository contains the different laboratory assignments developed throughou
 ### 📂 Extra Work 
 #### LAB 2 2025 — Advanced Sorting Algorithm: 📁 [Lab 2 25/26](./Lab2%2025:26%20AdvancedSortingAlgorithms)
 
-### 🛠️ Technologies
 
-* Java
-* Git & GitHub
-
-### 🎯 Focus
-
-The labs focus on the design, implementation, and analysis of algorithms, with particular attention to algorithm efficiency and computational complexity.
 
 ### 👩‍💻 Author
 
