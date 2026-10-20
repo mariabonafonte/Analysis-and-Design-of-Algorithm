@@ -14,7 +14,7 @@ Repository containing the laboratory assignments developed for the Analysis and 
 
 The repository contains the different laboratory assignments developed throughout the course.
 
-#### Unit 1:
+#### 📚Unit 1:
 * #### VPL1 — Brute Force
 * 📁 [CountInversionsProblem](./Brute%20Force/CountInversionsProblem)
 * 📁 [KthElementProblem](./Brute%20Force/KthElementProblem)
@@ -22,7 +22,7 @@ The repository contains the different laboratory assignments developed throughou
 * 📁 [PhytagoreanTriples](./Brute%20Force/PhytagoreanTriples)
 #### LAB 1 — Naive Search: 📁 [NaiveSearch](./Lab1%20Naive%20Search)
 
-#### Unit 2:
+#### 📚Unit 2:
 * #### VPL 2 — Divide and Conquer
 * 📁 [CountInversionsProblem](./Divide%20and%20Conquer/CountInversionsProblem)
 * 📁 [KthElementProblem](./Divide%20and%20Conquer/KthElementProblem)
