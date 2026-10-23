@@ -31,9 +31,6 @@ The repository contains the different laboratory assignments developed throughou
 
 #### LAB 2 — Diophantine Approximation: 📁 [DiophantineApproximation](./Lab2%20DiophantineApproximation)
 
-### 📂 Extra Work 
-#### LAB 2 2025 — Advanced Sorting Algorithm: 📁 [Lab 2 25/26](./Lab2%2025:26%20AdvancedSortingAlgorithms)
-
 #### 📚Unit 3:
 * #### VPL 3 — Dynamic Programming
 * 📁 [AtennaProblem](./Dynamic%20Programming/AtennaProblem)
@@ -43,6 +40,8 @@ The repository contains the different laboratory assignments developed throughou
 
 #### LAB 3 — ???: 📁
 
+### 📂 Extra Work 
+#### LAB 2 2025 — Advanced Sorting Algorithm: 📁 [Lab 2 25/26](./Lab2%2025:26%20AdvancedSortingAlgorithms)
 
 
 ### 👩‍💻 Author
